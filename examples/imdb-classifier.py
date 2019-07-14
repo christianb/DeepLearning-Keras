@@ -44,26 +44,28 @@ def run_validation_model(train_data, train_labels, test_data, test_labels):
 	validation_loss_values = history_dict['val_loss']
 	epochs = range(1, len(loss_values) + 1)
 
+	plt.figure()
 	plt.plot(epochs, loss_values, 'bo', label="Loss Training")
 	plt.plot(epochs, validation_loss_values, 'b', label='Loss Validation')
 	plt.title('Loss function results')
 	plt.xlabel('Epochs')
 	plt.ylabel('Value loss function')
 	plt.legend()
-	plt.show()
-	plt.clf()
 
 	# Values Accuracy
 	acc_values = history_dict['acc']  
 	validation_acc_values = history_dict['val_acc']
 
+	plt.figure()
 	plt.plot(epochs, acc_values, 'bo', label='Accuracy Traning')
 	plt.plot(epochs, validation_acc_values, 'b', label='Accuracy Validation')
 	plt.title('Accuracy Results')
 	plt.xlabel('Epochs')
 	plt.ylabel('Accuracy value')
 	plt.legend()
+
 	plt.show()
+	print("result: ", model.evaluate(test_data, test_labels))
 
 def run_model(train_data, train_labels, test_data, test_labels):
 	model = models.Sequential()
@@ -75,10 +77,7 @@ def run_model(train_data, train_labels, test_data, test_labels):
 
 	model.fit(train_data, train_labels, epochs=4, batch_size=512)
 
-	results = model.evaluate(test_data, test_labels)
-
-	print("results: ", results)
-
+	print("result: ", model.evaluate(test_data, test_labels))
 	print("prediction for each test sample: ",model.predict(test_data))
 
 def main():
@@ -116,8 +115,8 @@ def main():
 	binary_train_labels = np.asarray(train_labels).astype(float)
 	binary_test_labels = np.asarray(test_labels).astype(float)
 
-	# run_validation_model(binary_train_data, binary_train_labels, binary_test_data, binary_test_labels)
-	run_model(binary_train_data, binary_train_labels, binary_test_data, binary_test_labels)
+	run_validation_model(binary_train_data, binary_train_labels, binary_test_data, binary_test_labels)
+	# run_model(binary_train_data, binary_train_labels, binary_test_data, binary_test_labels)
     
 if __name__ == '__main__':
 	main()
