@@ -1,2 +1,8 @@
-# DeepLearning-Setup-Ubuntu
-Installtion script to setup DeepLearning with Python3 and Keras on Ubuntu
+# Deep Learning with Python and Keras
+Requires an Ubuntu Linux distribution.
+
+## Setup
+Use `setup.sh` to install all needed packages on Ubuntu.
+
+## Jupyter 
+Start Jupyter in browser: `jupyter notebook` 
