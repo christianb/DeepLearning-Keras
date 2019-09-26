@@ -1,0 +1,9 @@
+version: "3"
+
+services:
+  main:
+    build: .
+    volumes:
+     - ${PATH_DEEP_LEARNING}:/home/DeepLearning-Keras
+    stdin_open: true
+    tty: true
