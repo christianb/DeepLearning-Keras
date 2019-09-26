@@ -1,2 +1,4 @@
 .ipynb_checkpoints/
 *.iml
+__pycache__/
+*.png
