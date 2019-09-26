@@ -1,7 +1,7 @@
 version: "3"
 
 services:
-  main:
+  deep_learning:
     build: .
     volumes:
      - ${PATH_DEEP_LEARNING}:/home/DeepLearning-Keras
