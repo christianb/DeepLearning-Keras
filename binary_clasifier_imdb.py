@@ -6,6 +6,20 @@ from keras.datasets import imdb
 
 from plot import Plot
 
+# Configuration
+
+# limit the training data to the max occurring number of words
+_NUM_WORDS = 2000
+
+_EPOCHS_TRAIN = 20
+_EPOCHS_EVAL = 4
+
+_BATCH_SIZE = 512
+
+_VERBOSE = 1
+
+
+# help methods
 
 def reverse(data):
     return dict([(value, key) for (key, value) in data.items()])
@@ -27,6 +41,8 @@ def one_hot_encoding(sequences, dimension):
     return results
 
 
+# model, building, evaluation and training
+
 def build_model():
     model = models.Sequential()
     model.add(layers.Dense(16, activation='relu', input_shape=(_NUM_WORDS,)))
@@ -37,17 +53,23 @@ def build_model():
     return model
 
 
-def test(train_data, train_labels, test_data, test_labels):
+# trains a separate model with all train data/labels and evaluates the quality with the test data/labels
+def evaluate(train_data, train_labels, test_data, test_labels, epochs):
     model = build_model()
-    model.fit(train_data, train_labels, epochs=4, batch_size=512, verbose=0)
+    model.fit(train_data, train_labels,
+              epochs=epochs,
+              batch_size=_BATCH_SIZE,
+              verbose=_VERBOSE)
 
-    print("result: ", model.evaluate(test_data, test_labels))
+    result = model.evaluate(test_data, test_labels)
+    print("evaluation of the trained model: " + str(result[1]))
 
     # show prediction samples
     # print("prediction for each test sample: ",model.predict(test_data))
 
 
-def validate(train_data, train_labels, test_data, test_labels):
+# trains the model and validate the results
+def train(train_data, train_labels, epochs):
     model = build_model()
 
     # Validation
@@ -61,27 +83,27 @@ def validate(train_data, train_labels, test_data, test_labels):
 
     # Run the training
     history = model.fit(partial_train_data, partial_train_labels,
-                        epochs=20,
-                        batch_size=512,
+                        epochs=epochs,
+                        batch_size=_BATCH_SIZE,
                         validation_data=(validation_train_data, validation_train_labels),
-                        verbose=0)
-    return history
+                        verbose=_VERBOSE)
+
+    # plot history
+    p = Plot(history)
+    p.plot()
 
 
-_NUM_WORDS = 5000
-
+print("Load IMDB data. Select most " + str(_NUM_WORDS) + " words.")
 (train_data, train_labels), (test_data, test_labels) = imdb.load_data(num_words=_NUM_WORDS)
 
 # print(get_review(imdb, train_data, 0))
 
+print("prepare data and labels")
 binary_train_data = one_hot_encoding(train_data, _NUM_WORDS)
 binary_test_data = one_hot_encoding(test_data, _NUM_WORDS)
 
 binary_train_labels = np.asarray(train_labels).astype(float)
 binary_test_labels = np.asarray(test_labels).astype(float)
 
-history = validate(binary_train_data, binary_train_labels, binary_test_data, binary_test_labels)
-p = Plot(history)
-p.plot()
-
-# test(binary_train_data, binary_train_labels, binary_test_data, binary_test_labels)
+train(binary_train_data, binary_train_labels, _EPOCHS_TRAIN)
+evaluate(binary_train_data, binary_train_labels, binary_test_data, binary_test_labels, _EPOCHS_EVAL)
