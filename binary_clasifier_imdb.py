@@ -5,19 +5,17 @@ from keras import layers
 from keras.datasets import imdb
 
 from plot import Plot
+from one_hot_encoding import one_hot_encoding
+from evaluation import evaluate
 
 # Configuration
 
 # limit the training data to the max occurring number of words
 _NUM_WORDS = 10000
-
 _EPOCHS_TRAIN = 20
 _EPOCHS_EVAL = 4
-
 _BATCH_SIZE = 512
-
 _VERBOSE = 1
-
 
 # help methods
 
@@ -34,13 +32,6 @@ def get_review(imdb, data, index):
     return decode_review(reverse_word_index, data, index)
 
 
-def one_hot_encoding(sequences, dimension):
-    results = np.zeros(shape=(len(sequences), dimension), dtype=float)
-    for i, sequence in enumerate(sequences):
-        results[i, sequence] = 1.
-    return results
-
-
 # model, building, evaluation and training
 
 def build_model():
@@ -51,21 +42,6 @@ def build_model():
 
     model.compile(optimizer='rmsprop', loss='binary_crossentropy', metrics=['accuracy'])
     return model
-
-
-# trains a separate model with all train data/labels and evaluates the quality with the test data/labels
-def evaluate(train_data, train_labels, test_data, test_labels, epochs):
-    model = build_model()
-    model.fit(train_data, train_labels,
-              epochs=epochs,
-              batch_size=_BATCH_SIZE,
-              verbose=_VERBOSE)
-
-    result = model.evaluate(test_data, test_labels)
-    print("evaluation of the trained model: " + str(result[1]))
-
-    # show prediction samples
-    # print("prediction for each test sample: ",model.predict(test_data))
 
 
 # trains the model and validate the results
@@ -89,7 +65,7 @@ def train(train_data, train_labels, epochs):
                         verbose=_VERBOSE)
 
     # plot history
-    p = Plot(history)
+    p = Plot(history, "Binary-Classifier-IMDB", "binary-classifier-imdb")
     p.plot()
 
 
@@ -106,4 +82,7 @@ binary_train_labels = np.asarray(train_labels).astype(float)
 binary_test_labels = np.asarray(test_labels).astype(float)
 
 train(binary_train_data, binary_train_labels, _EPOCHS_TRAIN)
-evaluate(binary_train_data, binary_train_labels, binary_test_data, binary_test_labels, _EPOCHS_EVAL)
+
+evaluate(build_model(),
+         binary_train_data, binary_train_labels, binary_test_data, binary_test_labels,
+         _EPOCHS_EVAL, _BATCH_SIZE, _VERBOSE)
