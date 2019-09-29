@@ -1,7 +1,5 @@
 FROM ubuntu
 
-MAINTAINER Christian Bunk "christianb.public@gmail.com"
-
 WORKDIR /home
 
 # Avoiding user interaction with tzdata when installing
