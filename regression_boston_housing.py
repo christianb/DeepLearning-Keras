@@ -66,22 +66,22 @@ def train_and_evaluate(train_data, train_targets):
     return [np.mean([x[i] for x in all_mae_histories]) for i in range(_EPOCHS_TRAIN)]
 
 
-(train_data, train_targets), (test_data, test_targets) = boston_housing.load_data()
+if __name__ == '__main__':
+    (train_data, train_targets), (test_data, test_targets) = boston_housing.load_data()
 
-# normalize data
-mean = train_data.mean(axis=0)
-train_data -= mean
-std = train_data.std(axis=0)
-train_data /= std
+    # normalize data
+    mean = train_data.mean(axis=0)
+    train_data -= mean
+    std = train_data.std(axis=0)
+    train_data /= std
 
-test_data -= mean  # TODO could we calculate the mean and std from test_data itself?
-test_data /= std
+    test_data -= mean  # TODO could we calculate the mean and std from test_data itself?
+    test_data /= std
 
-average_mae_history = train_and_evaluate(train_data, train_targets)
+    average_mae_history = train_and_evaluate(train_data, train_targets)
 
-plt.clf()
-plt.plot(range(1, len(average_mae_history) + 1), average_mae_history)
-plt.xlabel('Epochs')
-plt.ylabel('Mean absolut error - Validation')
-plt.legend()
-plt.savefig('regression.png')
+    # plt.clf()
+    # plt.plot(range(1, len(average_mae_history) + 1), average_mae_history)
+    # plt.xlabel('Epochs')
+    # plt.ylabel('Mean absolut error - Validation')
+    # plt.legend()

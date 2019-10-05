@@ -50,12 +50,12 @@ def train(train_data, train_labels, epochs):
 
     # Validation
     # From the 25.000 samples we wanna use 10.000 as validation data
-    NUM_VALIDATION = 10000
-    validation_train_data = train_data[:NUM_VALIDATION]
-    partial_train_data = train_data[NUM_VALIDATION:]
+    num_validation = 10000
+    validation_train_data = train_data[:num_validation]
+    partial_train_data = train_data[num_validation:]
 
-    validation_train_labels = train_labels[:NUM_VALIDATION]
-    partial_train_labels = train_labels[NUM_VALIDATION:]
+    validation_train_labels = train_labels[:num_validation]
+    partial_train_labels = train_labels[num_validation:]
 
     # Run the training
     history = model.fit(partial_train_data, partial_train_labels,
@@ -69,20 +69,21 @@ def train(train_data, train_labels, epochs):
     p.plot()
 
 
-print("Load IMDB data. Select most " + str(_NUM_WORDS) + " words.")
-(train_data, train_labels), (test_data, test_labels) = imdb.load_data(num_words=_NUM_WORDS)
+if __name__ == '__main__':
+    print("Load IMDB data. Select most " + str(_NUM_WORDS) + " words.")
+    (train_data, train_labels), (test_data, test_labels) = imdb.load_data(num_words=_NUM_WORDS)
 
-# print(get_review(imdb, train_data, 0))
+    # print(get_review(imdb, train_data, 0))
 
-print("prepare data and labels")
-binary_train_data = one_hot_encoding(train_data, _NUM_WORDS)
-binary_test_data = one_hot_encoding(test_data, _NUM_WORDS)
+    print("prepare data and labels")
+    binary_train_data = one_hot_encoding(train_data, _NUM_WORDS)
+    binary_test_data = one_hot_encoding(test_data, _NUM_WORDS)
 
-binary_train_labels = np.asarray(train_labels).astype(float)
-binary_test_labels = np.asarray(test_labels).astype(float)
+    binary_train_labels = np.asarray(train_labels).astype(float)
+    binary_test_labels = np.asarray(test_labels).astype(float)
 
-train(binary_train_data, binary_train_labels, _EPOCHS_TRAIN)
+    train(binary_train_data, binary_train_labels, _EPOCHS_TRAIN)
 
-evaluate(build_model(),
-         binary_train_data, binary_train_labels, binary_test_data, binary_test_labels,
-         _EPOCHS_EVAL, _BATCH_SIZE, _VERBOSE)
+    evaluate(build_model(),
+             binary_train_data, binary_train_labels, binary_test_data, binary_test_labels,
+             _EPOCHS_EVAL, _BATCH_SIZE, _VERBOSE)
