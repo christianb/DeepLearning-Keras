@@ -7,12 +7,12 @@ import matplotlib.pyplot as plt
 
 
 class Plot:
-    def __init__(self, history, title, filename_suffix):
+    def __init__(self, history, title, project_directory):
         self.history_dict = history.history
         self.title = title
 
         # create output directory
-        self.directory = 'outputs/' + filename_suffix + '/'
+        self.directory = 'outputs/' + project_directory + '/'
         if not os.path.isdir(self.directory):
             os.mkdir(self.directory)
 
@@ -37,13 +37,13 @@ class Plot:
         plt.savefig(self.directory + 'loss.png')
 
     def plot_accuracy_result(self):
-        acc_values = self.history_dict['accuracy']
-        validation_acc_values = self.history_dict['val_accuracy']
-        epochs = range(1, len(acc_values) + 1)
+        accuracy_values = self.history_dict['acc']
+        validation_accuracy_values = self.history_dict['val_acc']
+        epochs = range(1, len(accuracy_values) + 1)
 
         plt.clf()
-        plt.plot(epochs, acc_values, 'bo', label='Accuracy Traning')
-        plt.plot(epochs, validation_acc_values, 'b', label='Accuracy Validation')
+        plt.plot(epochs, accuracy_values, 'bo', label='Accuracy Traning')
+        plt.plot(epochs, validation_accuracy_values, 'b', label='Accuracy Validation')
         plt.title('Accuracy Results: ' + self.title)
         plt.xlabel('Epochs')
         plt.ylabel('Accuracy value')
