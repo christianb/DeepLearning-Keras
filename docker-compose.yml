@@ -6,6 +6,6 @@ services:
   deep_learning:
     build: .
     volumes:
-     - ${PATH_DEEP_LEARNING}:/home/DeepLearning-Keras
+     - .:/home/.
     stdin_open: true
     tty: true
