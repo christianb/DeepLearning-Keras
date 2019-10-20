@@ -28,3 +28,8 @@ RUN apt-get update && apt-get install -y \
 
 # Install pip modules
 RUN pip3 install pydot-ng tensorflow keras
+
+# Download data from keras
+RUN echo "from keras.datasets import imdb;imdb.load_data()" | python3
+RUN echo "from keras.datasets import reuters;reuters.load_data()" | python3
+RUN echo "from keras.datasets import boston_housing;boston_housing.load_data()" | python3

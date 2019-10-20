@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 from keras import models
 from keras import layers
 from keras.datasets import boston_housing
