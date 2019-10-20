@@ -37,8 +37,8 @@ class Plot:
         plt.savefig(self.directory + 'loss.png')
 
     def plot_accuracy_result(self):
-        accuracy_values = self.history_dict['acc']
-        validation_accuracy_values = self.history_dict['val_acc']
+        accuracy_values = self.history_dict['accuracy']
+        validation_accuracy_values = self.history_dict['val_accuracy']
         epochs = range(1, len(accuracy_values) + 1)
 
         plt.clf()

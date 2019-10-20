@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 from keras.datasets import reuters
 from keras.utils.np_utils import to_categorical
 from keras import models

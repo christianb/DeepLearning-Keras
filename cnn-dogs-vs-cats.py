@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 from keras import layers
 from keras import models
 from keras import optimizers
@@ -108,7 +110,7 @@ def __build_model():
 
     model.summary()
 
-    model.compile(optimizer=optimizers.RMSprop(lr=1e-4), loss='binary_crossentropy', metrics=['acc'])
+    model.compile(optimizer=optimizers.RMSprop(lr=1e-4), loss='binary_crossentropy', metrics=['accuracy'])
     return model
 
 
