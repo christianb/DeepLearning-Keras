@@ -12,9 +12,9 @@ from evaluation import evaluate
 # Configuration
 
 # limit the training data to the max occurring number of words
-_NUM_WORDS = 10000
-_EPOCHS_TRAIN = 20
-_EPOCHS_EVAL = 7
+_NUM_WORDS = 2000 # 10000
+_EPOCHS_TRAIN = 2 # 20
+_EPOCHS_EVAL = 5 # 7
 _BATCH_SIZE = 512
 _VERBOSE = 1
 

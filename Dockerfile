@@ -27,7 +27,9 @@ RUN apt-get update && apt-get install -y \
   # unzip
 
 # Install pip modules
-RUN pip3 install pydot-ng tensorflow keras
+RUN pip3 install pydot-ng
+RUN pip3 install keras
+RUN pip3 install tensorflow
 
 # Download data from keras
 RUN echo "from keras.datasets import imdb;imdb.load_data()" | python3

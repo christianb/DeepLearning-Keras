@@ -8,7 +8,7 @@ import os
 import shutil
 from plot import Plot
 
-_EPOCHS_TRAIN = 30  # 30
+_EPOCHS_TRAIN = 1  # 30
 _BATCH_SIZE = 20
 
 _DATA_DIR = 'data/'

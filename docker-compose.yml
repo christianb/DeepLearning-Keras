@@ -6,6 +6,6 @@ services:
   deep_learning:
     build: .
     volumes:
-     - .:/home/.
+     - .:/home
     stdin_open: true
     tty: true
