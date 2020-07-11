@@ -10,8 +10,11 @@ docker-compose build
 docker-compose run --rm deep_learning /bin/bash
 ```
 
-## Binary IMDB Classifier
-`python3 binary-classifier-imdb.py`
+## Binary Classifier - IMDB
+`python3 binary_classifier_imdb.py`
 
-## Multiple Reuters Classifier
-`python3 multiple-classifier-reuters.py`
+## Multiple Classifier - Reuters
+`python3 multiple_classifier_reuters.py`
+
+## Regression - Boston Housing
+`python3 regression_boston_housing.py`
