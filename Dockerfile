@@ -1,4 +1,6 @@
-FROM ubuntu
+FROM ubuntu:20.04
+# Long-Term-Support
+# See latest images at DockerHub: https://hub.docker.com/_/ubuntu
 
 WORKDIR /home
 
